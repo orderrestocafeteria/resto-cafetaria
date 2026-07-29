@@ -10,10 +10,8 @@
 
   <div class="main-container">
     
-    <!-- DAFTAR PAKET MAKANAN -->
     <div class="menu-list">
       
-      <!-- Paket Small -->
       <div class="card item-card">
         <p class="pkg-title">🍜 Small - $5.400</p>
         <p class="pkg-desc">🥣 5 Bakso + 5 Choco Matcha</p>
@@ -21,7 +19,6 @@
         <a href="#form-section" class="btn-order" onclick="setSelectPackage('small')">ORDER SEKARANG</a>
       </div>
 
-      <!-- Paket Hemat -->
       <div class="card item-card">
         <p class="pkg-title">💚 Hemat - $2.000</p>
         <p class="pkg-desc">🥣 5 Bubur Pedas + 5 Susu Fresh</p>
@@ -29,15 +26,13 @@
         <a href="#form-section" class="btn-order" onclick="setSelectPackage('hemat')">ORDER SEKARANG</a>
       </div>
 
-      <!-- Paket Medium -->
       <div class="card item-card">
-        <p class="pkg-title">🍱 Medium - $7.500</p>
-        <p class="pkg-desc">🍲 5 Mie Ayam + 5 Es Teh Manis</p>
+        <p class="pkg-title">🍱 Medium - $5.800</p>
+        <p class="pkg-desc">🍛 5 Nasi Pecel + 5 Es Teh</p>
         <img src="Medium.png" alt="Medium Package" class="menu-img">
         <a href="#form-section" class="btn-order" onclick="setSelectPackage('medium')">ORDER SEKARANG</a>
       </div>
 
-      <!-- Paket High -->
       <div class="card item-card">
         <p class="pkg-title">🔥 High - Rp9.500</p>
         <p class="pkg-desc">🍛 5 Nasi Goreng + 5 Kopi Kenangan</p>
@@ -47,23 +42,19 @@
 
     </div>
 
-    <!-- FORM PEMESANAN -->
     <div class="card form-card" id="form-section">
       <h2>Form Pemesanan</h2>
       
-      <!-- Nama Pemesan -->
       <div class="form-group">
         <label class="label-text">Nama Pemesan:</label>
         <input type="text" id="nama" placeholder="Masukkan Nama Anda" value="Rere_Morrone">
       </div>
 
-      <!-- Nomor HP -->
       <div class="form-group">
         <label class="label-text">Nomor HP / WhatsApp:</label>
         <input type="tel" id="nomorHp" placeholder="Masukkan Nomor HP" value="08123456789">
       </div>
 
-      <!-- Kategori Pesanan -->
       <div class="form-group">
         <label class="label-text">Kategori Pesanan:</label>
         <select id="kategoriSelect" onchange="checkMinimumOrder()">
@@ -72,25 +63,22 @@
         </select>
       </div>
 
-      <!-- Pilihan Paket Makanan -->
       <div class="form-group">
         <label class="label-text">Pilih Paket Makanan:</label>
         <select id="paketSelect" onchange="calculateTotal()">
+          <option value="medium" data-price="5800" data-menu="5 Nasi Pecel + 5 Es Teh">Medium - $5.800</option>
           <option value="high" data-price="9500" data-menu="5 Nasi Goreng + 5 Kopi Kenangan">High - Rp9.500</option>
           <option value="small" data-price="5400" data-menu="5 Bakso + 5 Choco Matcha">Small - $5.400</option>
           <option value="hemat" data-price="2000" data-menu="5 Bubur Pedas + 5 Susu Fresh">Hemat - $2.000</option>
-          <option value="medium" data-price="7500" data-menu="5 Mie Ayam + 5 Es Teh Manis">Medium - $7.500</option>
         </select>
       </div>
 
-      <!-- Jumlah Paket -->
       <div class="form-group">
         <label class="label-text">Jumlah Paket:</label>
         <input type="number" id="jumlah" value="1" min="1" oninput="calculateTotal()">
         <small id="minWarning" class="warning-text" style="display: none; color: #ef4444; margin-top: 5px;">⚠️ Minimal pembelian untuk Acara/Pernikahan adalah 10 Paket!</small>
       </div>
 
-      <!-- Tanggal & Jam Pengiriman/Pengambilan -->
       <div class="grid-2">
         <div class="form-group">
           <label class="label-text">Tanggal:</label>
@@ -102,7 +90,6 @@
         </div>
       </div>
 
-      <!-- OPSI PENGIRIMAN & LOKASI -->
       <div class="form-group">
         <label class="label-text">Opsi Pengiriman / Lokasi:</label>
         <select id="lokasiSelect" onchange="calculateTotal()">
@@ -118,7 +105,6 @@
       <button class="btn-submit" onclick="generateInvoice()">BELI</button>
     </div>
 
-    <!-- INVOICE HASIL PEMESANAN -->
     <div class="card invoice-card" id="invoiceCard" style="display: none;">
       <h2>Invoice</h2>
       <div class="invoice-details">
