@@ -1,127 +1,205 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resto & Cafetaria Order</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Catering - Resto Cafetaria</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2f3136;
+            color: #dcddde;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background-color: #36393f;
+            padding: 25px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4f545c;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #202225;
+            background-color: #40444b;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #7289da;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #5865f2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #4752c4;
+        }
+        .result-box {
+            margin-top: 20px;
+            background-color: #2f3136;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 13px;
+            border: 1px solid #202225;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="main-container">
+<div class="container">
+    <h2>📄 FORM CATERING RESTO CAFETARIA</h2>
     
-    <div class="menu-list">
-      
-      <div class="card item-card">
-        <p class="pkg-title">🍜 Small - $5.400</p>
-        <p class="pkg-desc">🥣 5 Bakso + 5 Choco Matcha</p>
-        <img src="Small.png" alt="Small Package" class="menu-img">
-        <a href="#form-section" class="btn-order" onclick="setSelectPackage('small')">ORDER SEKARANG</a>
-      </div>
-
-      <div class="card item-card">
-        <p class="pkg-title">💚 Hemat - $2.000</p>
-        <p class="pkg-desc">🥣 5 Bubur Pedas + 5 Susu Fresh</p>
-        <img src="Hemat.png" alt="Hemat Package" class="menu-img">
-        <a href="#form-section" class="btn-order" onclick="setSelectPackage('hemat')">ORDER SEKARANG</a>
-      </div>
-
-      <div class="card item-card">
-        <p class="pkg-title">🍱 Medium - $5.800</p>
-        <p class="pkg-desc">🍛 5 Nasi Pecel + 5 Es Teh</p>
-        <img src="Medium.png" alt="Medium Package" class="menu-img">
-        <a href="#form-section" class="btn-order" onclick="setSelectPackage('medium')">ORDER SEKARANG</a>
-      </div>
-
-      <div class="card item-card">
-        <p class="pkg-title">🔥 High - Rp9.500</p>
-        <p class="pkg-desc">🍛 5 Nasi Goreng + 5 Kopi Kenangan</p>
-        <img src="High.png" alt="High Package" class="menu-img">
-        <a href="#form-section" class="btn-order" onclick="setSelectPackage('high')">ORDER SEKARANG</a>
-      </div>
-
+    <div class="form-group">
+        <label>NAMA IC:</label>
+        <input type="text" id="namaIc" placeholder="Masukkan Nama IC">
     </div>
 
-    <div class="card form-card" id="form-section">
-      <h2>Form Pemesanan</h2>
-      
-      <div class="form-group">
-        <label class="label-text">Nama Pemesan:</label>
-        <input type="text" id="nama" placeholder="Masukkan Nama Anda" value="Rere_Morrone">
-      </div>
-
-      <div class="form-group">
-        <label class="label-text">Nomor HP / WhatsApp:</label>
-        <input type="tel" id="nomorHp" placeholder="Masukkan Nomor HP" value="08123456789">
-      </div>
-
-      <div class="form-group">
-        <label class="label-text">Kategori Pesanan:</label>
-        <select id="kategoriSelect" onchange="checkMinimumOrder()">
-          <option value="biasa">Pesanan Biasa (Minimal 1 Paket)</option>
-          <option value="acara">Pesanan Acara / Pernikahan (Minimal 10 Paket)</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="label-text">Pilih Paket Makanan:</label>
-        <select id="paketSelect" onchange="calculateTotal()">
-          <option value="medium" data-price="5800" data-menu="5 Nasi Pecel + 5 Es Teh">Medium - $5.800</option>
-          <option value="high" data-price="9500" data-menu="5 Nasi Goreng + 5 Kopi Kenangan">High - Rp9.500</option>
-          <option value="small" data-price="5400" data-menu="5 Bakso + 5 Choco Matcha">Small - $5.400</option>
-          <option value="hemat" data-price="2000" data-menu="5 Bubur Pedas + 5 Susu Fresh">Hemat - $2.000</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="label-text">Jumlah Paket:</label>
-        <input type="number" id="jumlah" value="1" min="1" oninput="calculateTotal()">
-        <small id="minWarning" class="warning-text" style="display: none; color: #ef4444; margin-top: 5px;">⚠️ Minimal pembelian untuk Acara/Pernikahan adalah 10 Paket!</small>
-      </div>
-
-      <div class="grid-2">
-        <div class="form-group">
-          <label class="label-text">Tanggal:</label>
-          <input type="date" id="tanggalPengiriman">
-        </div>
-        <div class="form-group">
-          <label class="label-text">Jam:</label>
-          <input type="time" id="jamPengiriman" value="12:00">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="label-text">Opsi Pengiriman / Lokasi:</label>
-        <select id="lokasiSelect" onchange="calculateTotal()">
-          <option value="Ambil Sendiri" data-price="0">Ambil Sendiri ($0)</option>
-          <option value="Diantar ke LS" data-price="1500">Diantar ke Daerah LS (+$1.500)</option>
-          <option value="Diantar ke LV" data-price="3000">Diantar ke Daerah LV (+$3.000)</option>
-          <option value="Diantar ke SF" data-price="2500">Diantar ke Daerah SF (+$2.500)</option>
-        </select>
-      </div>
-
-      <p class="total-text">Total: <span id="totalHarga">$0</span></p>
-
-      <button class="btn-submit" onclick="generateInvoice()">BELI</button>
+    <div class="form-group">
+        <label>NO. HP IC:</label>
+        <input type="text" id="noHp" placeholder="Masukkan No. HP IC">
     </div>
 
-    <div class="card invoice-card" id="invoiceCard" style="display: none;">
-      <h2>Invoice</h2>
-      <div class="invoice-details">
-        <p><strong>Nama:</strong> <span id="invNama"></span></p>
-        <p><strong>No. HP:</strong> <span id="invHp"></span></p>
-        <p><strong>Kategori:</strong> <span id="invKategori"></span></p>
-        <p><strong>Paket:</strong> <span id="invPaket"></span></p>
-        <p><strong>Menu Paket:</strong> <span id="invMenu"></span></p>
-        <p><strong>Jumlah:</strong> <span id="invJumlah"></span> Paket</p>
-        <p><strong>Tanggal & Jam:</strong> <span id="invWaktu"></span></p>
-        <p><strong>Pengiriman:</strong> <span id="invLokasi"></span></p>
-        <p class="inv-total"><strong>Total Bayar:</strong> <span id="invTotal"></span></p>
-      </div>
+    <div class="form-group">
+        <label>DETAIL CATERING / MENU:</label>
+        <textarea id="detailCatering" rows="3" placeholder="Contoh: 50x Burger, 50x Cola"></textarea>
     </div>
 
-  </div>
+    <div class="form-group">
+        <label>JUMLAH (PORSI/PAKET):</label>
+        <input type="number" id="jumlah" placeholder="Contoh: 50">
+    </div>
 
-  <script src="script.js"></script>
+    <div class="form-group">
+        <label>KEPERLUAN:</label>
+        <input type="text" id="keperluan" placeholder="Contoh: Acara Event / Stok Family">
+    </div>
+
+    <div class="form-group">
+        <label>TANGGAL PESAN:</label>
+        <input type="date" id="tglPesan">
+    </div>
+
+    <div class="form-group">
+        <label>TANGGAL AMBIL / ANTAR:</label>
+        <input type="date" id="tglAmbil">
+    </div>
+
+    <div class="form-group">
+        <label>METODE:</label>
+        <select id="metode" onchange="toggleLokasi()">
+            <option value="AMBIL DI RESTO">AMBIL DI RESTO (Gratis)</option>
+            <option value="DIANTAR">DIANTAR (Sesuai Wilayah)</option>
+        </select>
+    </div>
+
+    <div class="form-group" id="lokasiGroup" style="display: none;">
+        <label>WILAYAH PENGANTARAN:</label>
+        <select id="lokasi">
+            <option value="LS ($1.500)">Los Santos ($1.500)</option>
+            <option value="LV ($3.000)">Las Venturas ($3.000)</option>
+            <option value="SF ($2.500)">San Fierro ($2.500)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>JAM (WIB):</label>
+        <input type="time" id="jam">
+    </div>
+
+    <div class="form-group">
+        <label>CATATAN (NOTE):</label>
+        <input type="text" id="note" placeholder="Catatan tambahan (Opsional)">
+    </div>
+
+    <button onclick="generateForm()">Generate & Copy Form</button>
+
+    <div class="result-box" id="output" style="display:none;"></div>
+</div>
+
+<script>
+    function toggleLokasi() {
+        const metode = document.getElementById('metode').value;
+        const lokasiGroup = document.getElementById('lokasiGroup');
+        lokasiGroup.style.display = (metode === 'DIANTAR') ? 'block' : 'none';
+    }
+
+    function generateForm() {
+        const namaIc = document.getElementById('namaIc').value || '-';
+        const noHp = document.getElementById('noHp').value || '-';
+        const detailCatering = document.getElementById('detailCatering').value || '-';
+        const jumlah = document.getElementById('jumlah').value || '-';
+        const keperluan = document.getElementById('keperluan').value || '-';
+        const tglPesan = document.getElementById('tglPesan').value || '-';
+        const tglAmbil = document.getElementById('tglAmbil').value || '-';
+        const metode = document.getElementById('metode').value;
+        const lokasi = (metode === 'DIANTAR') ? document.getElementById('lokasi').value : 'RESTO CAFETARIA';
+        const jam = document.getElementById('jam').value || '-';
+        const note = document.getElementById('note').value || '-';
+
+        const resultText = `📄 **FORM PEMESANAN CATERING RESTO CAFETARIA**
+
+NAMA IC       : ${namaIc}
+NO. HP IC     : ${noHp}
+DETAIL MENU   : ${detailCatering}
+JUMLAH        : ${jumlah}
+KEPERLUAN     : ${keperluan}
+TANGGAL PESAN : ${tglPesan}
+TANGGAL AMBIL : ${tglAmbil}
+ANTAR/AMBIL   : ${metode}
+JAM           : ${jam}
+LOKASI        : ${lokasi}
+
+NOTE : ${note}
+
+📋 **REGULASI PENGANTARAN**
+• LS = $1.500
+• LV = $3.000
+• SF = $2.500
+
+❗ PENGAMBILAN DI RESTO TIDAK DIKENAKAN BIAYA APAPUN
+❗ JIKA ADA KESALAHAN PEMBAYARAN BISA HUBUNGI PENGELOLA RESTO`;
+
+        const outputDiv = document.getElementById('output');
+        outputDiv.style.display = 'block';
+        outputDiv.innerText = resultText;
+
+        navigator.clipboard.writeText(resultText);
+        alert('Form Catering berhasil dibuat & disalin ke clipboard!');
+    }
+</script>
+
 </body>
 </html>
