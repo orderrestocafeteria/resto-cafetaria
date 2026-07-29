@@ -3,114 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resto & Cafetaria - Order Form</title>
+  <title>Resto & Cafetaria Order</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="container">
-    <header class="header">
-      <h1>Resto & Cafetaria</h1>
-      <p>Sistem Pemesanan Catering & Paket Makanan</p>
-    </header>
+  <div class="main-container">
+    
+    <!-- DAFTAR PAKET MAKANAN -->
+    <div class="menu-list">
+      
+      <!-- Paket Small -->
+      <div class="card item-card">
+        <p class="pkg-title">🍜 Small - $5.400</p>
+        <p class="pkg-desc">🥣 5 Bakso + 5 Choco Matcha</p>
+        <img src="Small.png" alt="Small Package" class="menu-img">
+        <a href="#form-section" class="btn-order" onclick="setSelectPackage('small')">ORDER SEKARANG</a>
+      </div>
 
-    <form id="orderForm">
-      <!-- 1. INFORMASI KONTAK -->
-      <section class="card">
-        <h2>👤 Informasi Kontak</h2>
-        <div class="input-group">
-          <label for="nama">Nama Lengkap</label>
-          <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
-        </div>
-        <div class="input-group">
-          <label for="phone">No. Handphone / WA</label>
-          <input type="tel" id="phone" placeholder="08xxxxxxxxxx" required>
-        </div>
-        <div class="input-group">
-          <label for="alamat">Alamat Pengiriman</label>
-          <textarea id="alamat" rows="2" placeholder="Masukkan alamat lengkap" required></textarea>
-        </div>
-        <div class="input-group">
-          <label for="discord">Username Discord</label>
-          <input type="text" id="discord" placeholder="Contoh: username#1234 atau @username" required>
-        </div>
-      </section>
+      <!-- Paket Hemat -->
+      <div class="card item-card">
+        <p class="pkg-title">💚 Hemat - $2.000</p>
+        <p class="pkg-desc">🥣 5 Bubur Pedas + 5 Susu Fresh</p>
+        <img src="Hemat.png" alt="Hemat Package" class="menu-img">
+        <a href="#form-section" class="btn-order" onclick="setSelectPackage('hemat')">ORDER SEKARANG</a>
+      </div>
 
-      <!-- 2. DETAIL ACARA -->
-      <section class="card">
-        <h2>📅 Detail Acara</h2>
-        <div class="input-group">
-          <label for="jenisAcara">Jenis Acara</label>
-          <input type="text" id="jenisAcara" placeholder="Contoh: Pernikahan, Ulang Tahun, Gathering" required>
-        </div>
-        <div class="grid-2">
-          <div class="input-group">
-            <label for="tanggalAcara">Tanggal Acara</label>
-            <input type="date" id="tanggalAcara" required>
-          </div>
-          <div class="input-group">
-            <label for="jamAcara">Jam Acara</label>
-            <input type="time" id="jamAcara" required>
-          </div>
-        </div>
-      </section>
+      <!-- Paket Medium -->
+      <div class="card item-card">
+        <p class="pkg-title">🍱 Medium - $7.500</p>
+        <p class="pkg-desc">🍲 5 Mie Ayam + 5 Es Teh Manis</p>
+        <img src="Medium.png" alt="Medium Package" class="menu-img">
+        <a href="#form-section" class="btn-order" onclick="setSelectPackage('medium')">ORDER SEKARANG</a>
+      </div>
 
-      <!-- 3. PILIH PAKET -->
-      <section class="card">
-        <h2>📦 Pilih Paket Makanan</h2>
-        <div class="package-grid">
-          
-          <div class="package-card" onclick="selectPackage(this, 'Paket Small', 1500)">
-            <img src="Small.png" alt="Small" class="pkg-img">
-            <h3>Paket Small</h3>
-            <p class="price">$1,500</p>
-          </div>
+      <!-- Paket High -->
+      <div class="card item-card">
+        <p class="pkg-title">🔥 High - Rp9.500</p>
+        <p class="pkg-desc">🍛 5 Nasi Goreng + 5 Kopi Kenangan</p>
+        <img src="High.png" alt="High Package" class="menu-img">
+        <a href="#form-section" class="btn-order" onclick="setSelectPackage('high')">ORDER SEKARANG</a>
+      </div>
 
-          <div class="package-card" onclick="selectPackage(this, 'Paket Medium', 3000)">
-            <img src="Medium.png" alt="Medium" class="pkg-img">
-            <h3>Paket Medium</h3>
-            <p class="price">$3,000</p>
-          </div>
+      <!-- Paket Acara / Pernikahan -->
+      <div class="card item-card">
+        <p class="pkg-title">💍 Paket Acara / Pernikahan - $10.000</p>
+        <p class="pkg-desc">👑 20 Nasi Komplit + 20 Prasmanan Drink</p>
+        <img src="High.png" alt="Acara Package" class="menu-img">
+        <a href="#form-section" class="btn-order" onclick="setSelectPackage('acara')">ORDER SEKARANG</a>
+      </div>
 
-          <div class="package-card" onclick="selectPackage(this, 'Paket High', 5000)">
-            <img src="High.png" alt="High" class="pkg-img">
-            <h3>Paket High</h3>
-            <p class="price">$5,000</p>
-          </div>
+    </div>
 
-          <div class="package-card" onclick="selectPackage(this, 'Paket Hemat', 1000)">
-            <img src="Hemat.png" alt="Hemat" class="pkg-img">
-            <h3>Paket Hemat</h3>
-            <p class="price">$1,000</p>
-          </div>
+    <!-- FORM PEMESANAN -->
+    <div class="card form-card" id="form-section">
+      <h2>Form Pemesanan</h2>
+      
+      <div class="form-group">
+        <input type="text" id="nama" placeholder="Masukkan Nama Anda" value="Rere_Morrone">
+      </div>
 
-        </div>
-        <input type="hidden" id="selectedPackageName">
-        <input type="hidden" id="selectedPackagePrice">
-      </section>
+      <div class="form-group">
+        <select id="paketSelect" onchange="calculateTotal()">
+          <option value="high" data-price="9500" data-menu="5 Nasi Goreng + 5 Kopi Kenangan">High - Rp9.500</option>
+          <option value="small" data-price="5400" data-menu="5 Bakso + 5 Choco Matcha">Small - $5.400</option>
+          <option value="hemat" data-price="2000" data-menu="5 Bubur Pedas + 5 Susu Fresh">Hemat - $2.000</option>
+          <option value="medium" data-price="7500" data-menu="5 Mie Ayam + 5 Es Teh Manis">Medium - $7.500</option>
+          <option value="acara" data-price="10000" data-menu="20 Nasi Komplit + 20 Prasmanan Drink">Paket Acara / Pernikahan - $10.000</option>
+        </select>
+      </div>
 
-      <!-- 4. METODE PEMBAYARAN -->
-      <section class="card">
-        <h2>💳 Metode Pembayaran</h2>
-        <div class="input-group">
-          <select id="metodeBayar" required>
-            <option value="">-- Pilih Metode --</option>
-            <option value="Bayar & Antar">Bayar & Antar (Diantar ke Lokasi)</option>
-            <option value="Bayar & Ambil">Bayar & Ambil (Ambil Sendiri)</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label for="catatan">Catatan Tambahan (Opsional)</label>
-          <textarea id="catatan" rows="2" placeholder="Catatan khusus untuk pesanan Anda"></textarea>
-        </div>
-      </section>
+      <!-- OPSI LOKASI PENGIRIMAN -->
+      <div class="form-group">
+        <label class="label-text">Lokasi Pengiriman / Diantar:</label>
+        <select id="lokasiSelect" onchange="calculateTotal()">
+          <option value="none" data-price="0">Ambil Sendiri ($0)</option>
+          <option value="LS" data-price="1500">Daerah LS (+$1.500)</option>
+          <option value="LV" data-price="3000">Daerah LV (+$3.000)</option>
+          <option value="SF" data-price="2500">Daerah SF (+$2.500)</option>
+        </select>
+      </div>
 
-      <!-- SUBMIT BUTTON -->
-      <button type="submit" class="btn-submit">KIRIM PESANAN</button>
-    </form>
+      <div class="form-group">
+        <input type="number" id="jumlah" value="1" min="1" oninput="calculateTotal()">
+      </div>
+
+      <p class="total-text">Total: <span id="totalHarga">$0</span></p>
+
+      <button class="btn-submit" onclick="generateInvoice()">BELI</button>
+    </div>
+
+    <!-- INVOICE HASIL PEMESANAN -->
+    <div class="card invoice-card" id="invoiceCard" style="display: none;">
+      <h2>Invoice</h2>
+      <div class="invoice-details">
+        <p><strong>Nama:</strong> <span id="invNama"></span></p>
+        <p><strong>Paket:</strong> <span id="invPaket"></span></p>
+        <p><strong>Menu:</strong> <span id="invMenu"></span></p>
+        <p><strong>Pengiriman:</strong> <span id="invLokasi"></span></p>
+        <p><strong>Jumlah:</strong> <span id="invJumlah"></span></p>
+        <p class="inv-total"><strong>Total:</strong> <span id="invTotal"></span></p>
+      </div>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
 </body>
-  </html>
-
+</html>
