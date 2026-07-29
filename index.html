@@ -3,95 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Catering - Resto Cafetaria</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2f3136;
-            color: #dcddde;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container {
-            background-color: #36393f;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        }
-        h2 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 20px;
-            border-bottom: 2px solid #4f545c;
-            padding-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            font-size: 13px;
-            color: #b9bbbe;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #202225;
-            background-color: #40444b;
-            color: #fff;
-            font-size: 14px;
-        }
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #7289da;
-        }
-        .min-info {
-            font-size: 11px;
-            color: #f04747;
-            margin-top: 4px;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #5865f2;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 15px;
-            margin-top: 10px;
-            transition: background-color 0.2s;
-        }
-        button:hover {
-            background-color: #4752c4;
-        }
-        .result-box {
-            margin-top: 20px;
-            background-color: #2f3136;
-            padding: 15px;
-            border-radius: 4px;
-            white-space: pre-wrap;
-            font-family: monospace;
-            font-size: 13px;
-            border: 1px solid #202225;
-            color: #00ff66;
-        }
-    </style>
+    <title>Form Pemesanan Catering - Resto Cafetaria</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -109,24 +22,30 @@
     </div>
 
     <div class="form-group">
-        <label>JENIS ACARA :</label>
-        <input type="text" id="jenisAcara" placeholder="Contoh: Pesta Faction / Wedding / Gathering">
+        <label>PILIH PAKET :</label>
+        <select id="namaPaket" onchange="updatePreviewImg()">
+            <!-- Sesuaikan harga per porsi di atribut data-harga -->
+            <option value="Paket High" data-harga="1000" data-img="High.png">Paket High ($1.000/porsi)</option>
+            <option value="Paket Medium" data-harga="750" data-img="Medium.png">Paket Medium ($750/porsi)</option>
+            <option value="Paket Small" data-harga="500" data-img="Small.png">Paket Small ($500/porsi)</option>
+            <option value="Paket Hemat" data-harga="300" data-img="Hemat.png">Paket Hemat ($300/porsi)</option>
+        </select>
+    </div>
+
+    <!-- Preview Gambar Paket -->
+    <div class="img-preview-container">
+        <img id="paketImg" src="High.png" alt="Preview Paket">
     </div>
 
     <div class="form-group">
-        <label>SISTEM MENU :</label>
-        <input type="text" id="sistemMenu" placeholder="Contoh: Prasmanan / Box / Paket Event">
+        <label>JUMLAH (MINIMAL 10) :</label>
+        <input type="number" id="jumlah" min="10" placeholder="Minimal 10 paket">
+        <div class="min-info">* Pembelian catering minimal 10 paket!</div>
     </div>
 
     <div class="form-group">
-        <label>DETAIL MENU :</label>
-        <textarea id="detailMenu" rows="3" placeholder="Contoh: Burger 10x, Soda 10x"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>ESTIMASI PORSI (MINIMAL 10) :</label>
-        <input type="number" id="estimasiPorsi" min="10" placeholder="Minimal 10 Paket/Porsi">
-        <div class="min-info">* Minimal pemesanan catering adalah 10 paket/porsi.</div>
+        <label>KEPERLUAN :</label>
+        <input type="text" id="keperluan" placeholder="Contoh: Nikahan / Event / Faction">
     </div>
 
     <div class="form-group">
@@ -135,30 +54,35 @@
     </div>
 
     <div class="form-group">
-        <label>TANGGAL ACARA :</label>
-        <input type="date" id="tglAcara">
+        <label>TANGGAL AMBIL :</label>
+        <input type="date" id="tglAmbil">
     </div>
 
     <div class="form-group">
-        <label>PENGIRIMAN :</label>
-        <select id="pengiriman" onchange="toggleLokasi()">
+        <label>ANTAR/AMBIL :</label>
+        <select id="metode" onchange="toggleLokasi()">
             <option value="AMBIL DI RESTO">AMBIL DI RESTO</option>
             <option value="DIANTAR">DIANTAR</option>
         </select>
     </div>
 
-    <div class="form-group">
-        <label>JAM ACARA (WIB) :</label>
-        <input type="time" id="jamAcara">
+    <div class="form-group" id="lokasiGroup" style="display: none;">
+        <label>LOKASI :</label>
+        <select id="lokasi">
+            <option value="LS ($1.500)" data-ongkir="1500">LS ($1.500)</option>
+            <option value="LV ($3.000)" data-ongkir="3000">LV ($3.000)</option>
+            <option value="SF ($2.500)" data-ongkir="2500">SF ($2.500)</option>
+        </select>
     </div>
 
-    <div class="form-group" id="lokasiGroup" style="display: none;">
-        <label>LOKASI ACARA :</label>
-        <select id="lokasiAcara">
-            <option value="LS ($1.500)">LS ($1.500)</option>
-            <option value="LV ($3.000)">LV ($3.000)</option>
-            <option value="SF ($2.500)">SF ($2.500)</option>
-        </select>
+    <div class="form-group">
+        <label>JAM (WIB) :</label>
+        <input type="time" id="jam">
+    </div>
+
+    <div class="form-group">
+        <label>CATATAN (NOTE) :</label>
+        <input type="text" id="note" placeholder="Catatan tambahan">
     </div>
 
     <button onclick="generateForm()">Generate & Copy Form</button>
@@ -166,64 +90,6 @@
     <div class="result-box" id="output" style="display:none;"></div>
 </div>
 
-<script>
-    function toggleLokasi() {
-        const pengiriman = document.getElementById('pengiriman').value;
-        const lokasiGroup = document.getElementById('lokasiGroup');
-        lokasiGroup.style.display = (pengiriman === 'DIANTAR') ? 'block' : 'none';
-    }
-
-    function generateForm() {
-        const porsiVal = parseInt(document.getElementById('estimasiPorsi').value) || 0;
-
-        // Validasi Minimal 10 Porsi
-        if (porsiVal < 10) {
-            alert('Pemesanan Catering minimal 10 paket/porsi!');
-            return;
-        }
-
-        const namaIc = document.getElementById('namaIc').value || '-';
-        const noHp = document.getElementById('noHp').value || '-';
-        const jenisAcara = document.getElementById('jenisAcara').value || '-';
-        const sistemMenu = document.getElementById('sistemMenu').value || '-';
-        const detailMenu = document.getElementById('detailMenu').value || '-';
-        const estimasiPorsi = porsiVal + " Porsi";
-        const tglPesan = document.getElementById('tglPesan').value || '-';
-        const tglAcara = document.getElementById('tglAcara').value || '-';
-        const pengiriman = document.getElementById('pengiriman').value;
-        const jamAcara = document.getElementById('jamAcara').value || '-';
-        const lokasiAcara = (pengiriman === 'DIANTAR') ? document.getElementById('lokasiAcara').value : 'AMBIL DI RESTO';
-
-        const resultText = `📄 **FORM PEMESANAN CATERING RESTO CAFETARIA**
-
-NAMA IC       : ${namaIc}
-NO. HP IC     : ${noHp}
-JENIS ACARA   : ${jenisAcara}
-SISTEM MENU   : ${sistemMenu}
-DETAIL MENU   : ${detailMenu}
-ESTIMASI PORSI: ${estimasiPorsi}
-TANGGAL PESAN : ${tglPesan}
-TANGGAL ACARA : ${tglAcara}
-PENGIRIMAN    : ${pengiriman}
-JAM ACARA     : ${jamAcara}
-LOKASI ACARA  : ${lokasiAcara}
-
-📋 **REGULASI PENGANTARAN**
-• LS = $1.500
-• LV = $3.000
-• SF = $2.500
-
-❗ PENGAMBILAN DI RESTO TIDAK DIKENAKAN BIAYA APAPUN
-❗ JIKA ADA KESALAHAN PEMBAYARAN BISA HUBUNGI PENGELOLA RESTO`;
-
-        const outputDiv = document.getElementById('output');
-        outputDiv.style.display = 'block';
-        outputDiv.innerText = resultText;
-
-        navigator.clipboard.writeText(resultText);
-        alert('Form Pemesanan Catering berhasil disalin!');
-    }
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
