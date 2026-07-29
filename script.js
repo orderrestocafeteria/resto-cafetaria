@@ -32,6 +32,7 @@ function generateForm() {
     const tglPesan = document.getElementById('tglPesan').value || '-';
     const tglAmbil = document.getElementById('tglAmbil').value || '-';
     const waktuAcara = document.getElementById('waktuAcara').value || 'Siang';
+    const jam = document.getElementById('jam').value || '-';
     const metode = document.getElementById('metode').value;
     
     // Hitung Ongkir
@@ -44,17 +45,14 @@ function generateForm() {
         ongkir = parseInt(lokasiSelect.options[lokasiSelect.selectedIndex].getAttribute('data-ongkir')) || 0;
     }
 
-    const jam = document.getElementById('jam').value || '-';
     const note = document.getElementById('note').value || '-';
 
-    // Hitung Total Pembayaran Otomatis
+    // Perhitungan Total Otomatis: (Harga Paket x Jumlah) + Ongkir
     const totalHarga = (hargaPerPaket * jumlahVal) + ongkir;
     const totalFormatted = '$' + totalHarga.toLocaleString('en-US');
 
-    // Template Output Discord
-    const resultText = `📄 **FORM PEMESANAN CATERING RESTO CAFETARIA**
-
-NAMA IC       : ${namaIc}
+    // Format Pesanan Bersih Sesuai Permintaan
+    const resultText = `NAMA IC       : ${namaIc}
 NO. HP IC     : ${noHp}
 NAMA PAKET    : ${namaPaket}
 JUMLAH        : ${jumlahVal}
@@ -67,12 +65,16 @@ LOKASI        : ${lokasiText}
 
 TOTAL HARGA   : ${totalFormatted}
 
-NOTE : ${note}
+NOTE : ${note}`;
 
     const outputDiv = document.getElementById('output');
     outputDiv.style.display = 'block';
     outputDiv.innerText = resultText;
 
-    navigator.clipboard.writeText(resultText);
-    alert('Form Pemesanan Catering berhasil disalin!');
+    // Salin ke Clipboard
+    navigator.clipboard.writeText(resultText).then(() => {
+        alert('Hasil Pesanan berhasil disalin ke clipboard!');
+    }).catch(() => {
+        alert('Hasil Pesanan berhasil dibuat!');
+    });
 }
