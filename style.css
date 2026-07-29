@@ -1,157 +1,62 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
+function generateForm() {
+    const jumlahVal = parseInt(document.getElementById('jumlah').value) || 0;
 
-body {
-  background-color: #121212;
-  color: #ffffff;
-  display: flex;
-  justify-content: center;
-  padding: 15px;
-}
+    // Validasi Pembelian Minimal 10
+    if (jumlahVal < 10) {
+        alert('Pemesanan Catering minimal 10 paket!');
+        return;
+    }
 
-.main-container {
-  width: 100%;
-  max-width: 480px;
-}
+    const namaIc = document.getElementById('namaIc').value || '-';
+    const noHp = document.getElementById('noHp').value || '-';
+    
+    // Ambil Informasi Paket
+    const paketSelect = document.getElementById('namaPaket');
+    const namaPaket = paketSelect.value;
+    const hargaPerPaket = parseInt(paketSelect.options[paketSelect.selectedIndex].getAttribute('data-harga')) || 0;
 
-/* Card Style */
-.card {
-  background-color: #1e1e1e;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
+    const keperluan = document.getElementById('keperluan').value || '-';
+    const tglPesan = document.getElementById('tglPesan').value || '-';
+    const tglAmbil = document.getElementById('tglAmbil').value || '-';
+    const metode = document.getElementById('metode').value;
+    
+    // Hitung Ongkir
+    const lokasiSelect = document.getElementById('lokasi');
+    let ongkir = 0;
+    let lokasiText = '-';
 
-/* Item Card */
-.item-card {
-  text-align: center;
-}
+    if (metode === 'DIANTAR') {
+        lokasiText = lokasiSelect.value;
+        ongkir = parseInt(lokasiSelect.options[lokasiSelect.selectedIndex].getAttribute('data-ongkir')) || 0;
+    }
 
-.pkg-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
+    const jam = document.getElementById('jam').value || '-';
+    const note = document.getElementById('note').value || '-';
 
-.pkg-desc {
-  font-size: 15px;
-  color: #e0e0e0;
-  margin-bottom: 15px;
-}
+    // Hitung Total Pembayaran
+    const totalHarga = (hargaPerPaket * jumlahVal) + ongkir;
+    const totalFormatted = '$' + totalHarga.toLocaleString('en-US');
 
-.menu-img {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  object-fit: cover;
-}
+    // Format Pesanan Ringkas
+    const resultText = `NAMA IC       : ${namaIc}
+NO. HP IC     : ${noHp}
+NAMA PAKET    : ${namaPaket}
+JUMLAH        : ${jumlahVal}
+KEPERLUAN     : ${keperluan}
+TANGGAL PESAN : ${tglPesan}
+TANGGAL AMBIL : ${tglAmbil}
+ANTAR/AMBIL   : ${metode}
+JAM           : ${jam}
+LOKASI        : ${lokasiText}
 
-.btn-order {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  background-color: #7c3aed;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  transition: 0.2s;
-}
+TOTAL HARGA   : ${totalFormatted}
 
-.btn-order:hover, .btn-submit:hover {
-  background-color: #6d28d9;
-}
+NOTE : ${note}`;
 
-/* Form Section */
-.form-card h2, .invoice-card h2 {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
+    const outputDiv = document.getElementById('output');
+    outputDiv.style.display = 'block';
+    outputDiv.innerText = resultText;
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.label-text {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #aaa;
-}
-
-input, select {
-  width: 100%;
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid #333;
-  background-color: #ffffff;
-  color: #000000;
-  font-size: 16px;
-  outline: none;
-}
-
-.warning-text {
-  display: block;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.total-text {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  margin: 20px 0;
-}
-
-.btn-submit {
-  width: 100%;
-  padding: 14px;
-  background-color: #7c3aed;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-/* Invoice Section */
-.invoice-card {
-  text-align: left;
-}
-
-.invoice-details p {
-  font-size: 15px;
-  margin-bottom: 10px;
-  color: #d1d5db;
-  border-bottom: 1px solid #2a2a2a;
-  padding-bottom: 6px;
-}
-
-.invoice-details strong {
-  color: #ffffff;
-}
-
-.inv-total {
-  font-size: 18px;
-  margin-top: 15px;
-  color: #34d399 !important;
-  border-bottom: none !important;
+    navigator.clipboard.writeText(resultText);
+    alert('Form Pemesanan Catering berhasil disalin!');
 }
