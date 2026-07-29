@@ -1,62 +1,96 @@
-function generateForm() {
-    const jumlahVal = parseInt(document.getElementById('jumlah').value) || 0;
-
-    // Validasi Pembelian Minimal 10
-    if (jumlahVal < 10) {
-        alert('Pemesanan Catering minimal 10 paket!');
-        return;
-    }
-
-    const namaIc = document.getElementById('namaIc').value || '-';
-    const noHp = document.getElementById('noHp').value || '-';
-    
-    // Ambil Informasi Paket
-    const paketSelect = document.getElementById('namaPaket');
-    const namaPaket = paketSelect.value;
-    const hargaPerPaket = parseInt(paketSelect.options[paketSelect.selectedIndex].getAttribute('data-harga')) || 0;
-
-    const keperluan = document.getElementById('keperluan').value || '-';
-    const tglPesan = document.getElementById('tglPesan').value || '-';
-    const tglAmbil = document.getElementById('tglAmbil').value || '-';
-    const metode = document.getElementById('metode').value;
-    
-    // Hitung Ongkir
-    const lokasiSelect = document.getElementById('lokasi');
-    let ongkir = 0;
-    let lokasiText = '-';
-
-    if (metode === 'DIANTAR') {
-        lokasiText = lokasiSelect.value;
-        ongkir = parseInt(lokasiSelect.options[lokasiSelect.selectedIndex].getAttribute('data-ongkir')) || 0;
-    }
-
-    const jam = document.getElementById('jam').value || '-';
-    const note = document.getElementById('note').value || '-';
-
-    // Hitung Total Pembayaran
-    const totalHarga = (hargaPerPaket * jumlahVal) + ongkir;
-    const totalFormatted = '$' + totalHarga.toLocaleString('en-US');
-
-    // Format Pesanan Ringkas
-    const resultText = `NAMA IC       : ${namaIc}
-NO. HP IC     : ${noHp}
-NAMA PAKET    : ${namaPaket}
-JUMLAH        : ${jumlahVal}
-KEPERLUAN     : ${keperluan}
-TANGGAL PESAN : ${tglPesan}
-TANGGAL AMBIL : ${tglAmbil}
-ANTAR/AMBIL   : ${metode}
-JAM           : ${jam}
-LOKASI        : ${lokasiText}
-
-TOTAL HARGA   : ${totalFormatted}
-
-NOTE : ${note}`;
-
-    const outputDiv = document.getElementById('output');
-    outputDiv.style.display = 'block';
-    outputDiv.innerText = resultText;
-
-    navigator.clipboard.writeText(resultText);
-    alert('Form Pemesanan Catering berhasil disalin!');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2f3136;
+    color: #dcddde;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+.container {
+    background-color: #36393f;
+    padding: 25px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 20px;
+    border-bottom: 2px solid #4f545c;
+    padding-bottom: 10px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #b9bbbe;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #202225;
+    background-color: #40444b;
+    color: #fff;
+    font-size: 14px;
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #7289da;
+}
+.img-preview-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.img-preview-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    border: 1px solid #202225;
+}
+.min-info {
+    font-size: 11px;
+    color: #f04747;
+    margin-top: 4px;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #5865f2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+button:hover {
+    background-color: #4752c4;
+}
+.result-box {
+    margin-top: 20px;
+    background-color: #2f3136;
+    padding: 15px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 13px;
+    border: 1px solid #202225;
+    color: #dcddde;
 }
