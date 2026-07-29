@@ -83,6 +83,12 @@ body {
   margin-bottom: 15px;
 }
 
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .label-text {
   display: block;
   font-size: 14px;
@@ -99,6 +105,12 @@ input, select {
   color: #000000;
   font-size: 16px;
   outline: none;
+}
+
+.warning-text {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 .total-text {
@@ -122,13 +134,15 @@ input, select {
 
 /* Invoice Section */
 .invoice-card {
-  text-align: center;
+  text-align: left;
 }
 
 .invoice-details p {
-  font-size: 16px;
-  margin-bottom: 8px;
+  font-size: 15px;
+  margin-bottom: 10px;
   color: #d1d5db;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 6px;
 }
 
 .invoice-details strong {
@@ -137,7 +151,7 @@ input, select {
 
 .inv-total {
   font-size: 18px;
-  margin-top: 10px;
-  color: #ffffff !important;
+  margin-top: 15px;
+  color: #34d399 !important;
+  border-bottom: none !important;
 }
-
