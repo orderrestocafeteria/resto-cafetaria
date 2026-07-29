@@ -1,77 +1,9 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Pemesanan Catering - Resto Cafetaria</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<div class="container">
-    <h2>📄 FORM PEMESANAN CATERING</h2>
-    
     <div class="form-group">
-        <label>NAMA IC :</label>
-        <input type="text" id="namaIc" placeholder="Masukkan nama IC">
-    </div>
-
-    <div class="form-group">
-        <label>NO. HP IC :</label>
-        <input type="text" id="noHp" placeholder="Masukkan No. HP IC">
-    </div>
-
-    <div class="form-group">
-        <label>PILIH PAKET :</label>
-        <select id="namaPaket" onchange="updatePreviewImg()">
-            <!-- Sesuaikan harga per porsi di atribut data-harga -->
-            <option value="Paket High" data-harga="1000" data-img="High.png">Paket High ($1.000/porsi)</option>
-            <option value="Paket Medium" data-harga="750" data-img="Medium.png">Paket Medium ($750/porsi)</option>
-            <option value="Paket Small" data-harga="500" data-img="Small.png">Paket Small ($500/porsi)</option>
-            <option value="Paket Hemat" data-harga="300" data-img="Hemat.png">Paket Hemat ($300/porsi)</option>
-        </select>
-    </div>
-
-    <!-- Preview Gambar Paket -->
-    <div class="img-preview-container">
-        <img id="paketImg" src="High.png" alt="Preview Paket">
-    </div>
-
-    <div class="form-group">
-        <label>JUMLAH (MINIMAL 10) :</label>
-        <input type="number" id="jumlah" min="10" placeholder="Minimal 10 paket">
-        <div class="min-info">* Pembelian catering minimal 10 paket!</div>
-    </div>
-
-    <div class="form-group">
-        <label>KEPERLUAN :</label>
-        <input type="text" id="keperluan" placeholder="Contoh: Nikahan / Event / Faction">
-    </div>
-
-    <div class="form-group">
-        <label>TANGGAL PESAN :</label>
-        <input type="date" id="tglPesan">
-    </div>
-
-    <div class="form-group">
-        <label>TANGGAL AMBIL :</label>
-        <input type="date" id="tglAmbil">
-    </div>
-
-    <div class="form-group">
-        <label>ANTAR/AMBIL :</label>
-        <select id="metode" onchange="toggleLokasi()">
-            <option value="AMBIL DI RESTO">AMBIL DI RESTO</option>
-            <option value="DIANTAR">DIANTAR</option>
-        </select>
-    </div>
-
-    <div class="form-group" id="lokasiGroup" style="display: none;">
-        <label>LOKASI :</label>
-        <select id="lokasi">
-            <option value="LS ($1.500)" data-ongkir="1500">LS ($1.500)</option>
-            <option value="LV ($3.000)" data-ongkir="3000">LV ($3.000)</option>
-            <option value="SF ($2.500)" data-ongkir="2500">SF ($2.500)</option>
+        <label>WAKTU ACARA :</label>
+        <select id="waktuAcara">
+            <option value="Pagi">Pagi</option>
+            <option value="Siang">Siang</option>
+            <option value="Malam">Malam</option>
         </select>
     </div>
 
@@ -79,17 +11,4 @@
         <label>JAM (WIB) :</label>
         <input type="time" id="jam">
     </div>
-
-    <div class="form-group">
-        <label>CATATAN (NOTE) :</label>
-        <input type="text" id="note" placeholder="Catatan tambahan">
-    </div>
-
-    <button onclick="generateForm()">Generate & Copy Form</button>
-
-    <div class="result-box" id="output" style="display:none;"></div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
+    
