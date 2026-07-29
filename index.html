@@ -1,1 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resto & Cafetaria - Order Form</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header class="header">
+      <h1>Resto & Cafetaria</h1>
+      <p>Sistem Pemesanan Catering & Paket Makanan</p>
+    </header>
+
+    <form id="orderForm">
+      <!-- 1. INFORMASI KONTAK -->
+      <section class="card">
+        <h2>👤 Informasi Kontak</h2>
+        <div class="input-group">
+          <label for="nama">Nama Lengkap</label>
+          <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+        </div>
+        <div class="input-group">
+          <label for="phone">No. Handphone / WA</label>
+          <input type="tel" id="phone" placeholder="08xxxxxxxxxx" required>
+        </div>
+        <div class="input-group">
+          <label for="alamat">Alamat Pengiriman</label>
+          <textarea id="alamat" rows="2" placeholder="Masukkan alamat lengkap" required></textarea>
+        </div>
+        <div class="input-group">
+          <label for="discord">Username Discord</label>
+          <input type="text" id="discord" placeholder="Contoh: username#1234 atau @username" required>
+        </div>
+      </section>
+
+      <!-- 2. DETAIL ACARA -->
+      <section class="card">
+        <h2>📅 Detail Acara</h2>
+        <div class="input-group">
+          <label for="jenisAcara">Jenis Acara</label>
+          <input type="text" id="jenisAcara" placeholder="Contoh: Pernikahan, Ulang Tahun, Gathering" required>
+        </div>
+        <div class="grid-2">
+          <div class="input-group">
+            <label for="tanggalAcara">Tanggal Acara</label>
+            <input type="date" id="tanggalAcara" required>
+          </div>
+          <div class="input-group">
+            <label for="jamAcara">Jam Acara</label>
+            <input type="time" id="jamAcara" required>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. PILIH PAKET -->
+      <section class="card">
+        <h2>📦 Pilih Paket Makanan</h2>
+        <div class="package-grid">
+          
+          <div class="package-card" onclick="selectPackage(this, 'Paket Small', 1500)">
+            <img src="Small.png" alt="Small" class="pkg-img">
+            <h3>Paket Small</h3>
+            <p class="price">$1,500</p>
+          </div>
+
+          <div class="package-card" onclick="selectPackage(this, 'Paket Medium', 3000)">
+            <img src="Medium.png" alt="Medium" class="pkg-img">
+            <h3>Paket Medium</h3>
+            <p class="price">$3,000</p>
+          </div>
+
+          <div class="package-card" onclick="selectPackage(this, 'Paket High', 5000)">
+            <img src="High.png" alt="High" class="pkg-img">
+            <h3>Paket High</h3>
+            <p class="price">$5,000</p>
+          </div>
+
+          <div class="package-card" onclick="selectPackage(this, 'Paket Hemat', 1000)">
+            <img src="Hemat.png" alt="Hemat" class="pkg-img">
+            <h3>Paket Hemat</h3>
+            <p class="price">$1,000</p>
+          </div>
+
+        </div>
+        <input type="hidden" id="selectedPackageName">
+        <input type="hidden" id="selectedPackagePrice">
+      </section>
+
+      <!-- 4. METODE PEMBAYARAN -->
+      <section class="card">
+        <h2>💳 Metode Pembayaran</h2>
+        <div class="input-group">
+          <select id="metodeBayar" required>
+            <option value="">-- Pilih Metode --</option>
+            <option value="Bayar & Antar">Bayar & Antar (Diantar ke Lokasi)</option>
+            <option value="Bayar & Ambil">Bayar & Ambil (Ambil Sendiri)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="catatan">Catatan Tambahan (Opsional)</label>
+          <textarea id="catatan" rows="2" placeholder="Catatan khusus untuk pesanan Anda"></textarea>
+        </div>
+      </section>
+
+      <!-- SUBMIT BUTTON -->
+      <button type="submit" class="btn-submit">KIRIM PESANAN</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+  </html>
 
