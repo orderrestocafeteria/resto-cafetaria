@@ -14,7 +14,7 @@ function updatePreviewImg() {
 function generateForm() {
     const jumlahVal = parseInt(document.getElementById('jumlah').value) || 0;
 
-    // Validasi Pembelian Minimal 10
+    // Validasi Minimal 10 Paket
     if (jumlahVal < 10) {
         alert('Pemesanan Catering minimal 10 paket!');
         return;
@@ -31,6 +31,7 @@ function generateForm() {
     const keperluan = document.getElementById('keperluan').value || '-';
     const tglPesan = document.getElementById('tglPesan').value || '-';
     const tglAmbil = document.getElementById('tglAmbil').value || '-';
+    const waktuAcara = document.getElementById('waktuAcara').value || 'Siang';
     const metode = document.getElementById('metode').value;
     
     // Hitung Ongkir
@@ -46,25 +47,27 @@ function generateForm() {
     const jam = document.getElementById('jam').value || '-';
     const note = document.getElementById('note').value || '-';
 
-    // Hitung Total Pembayaran
+    // Hitung Total Pembayaran Otomatis
     const totalHarga = (hargaPerPaket * jumlahVal) + ongkir;
     const totalFormatted = '$' + totalHarga.toLocaleString('en-US');
 
-    // Format Pesanan Ringkas
-    const resultText = `NAMA IC       : ${namaIc}
+    // Template Output Discord
+    const resultText = `📄 **FORM PEMESANAN CATERING RESTO CAFETARIA**
+
+NAMA IC       : ${namaIc}
 NO. HP IC     : ${noHp}
 NAMA PAKET    : ${namaPaket}
 JUMLAH        : ${jumlahVal}
 KEPERLUAN     : ${keperluan}
 TANGGAL PESAN : ${tglPesan}
 TANGGAL AMBIL : ${tglAmbil}
+WAKTU         : ${waktuAcara} (${jam})
 ANTAR/AMBIL   : ${metode}
-JAM           : ${jam}
 LOKASI        : ${lokasiText}
 
 TOTAL HARGA   : ${totalFormatted}
 
-NOTE : ${note}`;
+NOTE : ${note}
 
     const outputDiv = document.getElementById('output');
     outputDiv.style.display = 'block';
