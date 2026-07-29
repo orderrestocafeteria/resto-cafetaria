@@ -1,112 +1,75 @@
-// Fungsi kalkulasi harga otomatis
-function calculateTotal() {
-  const paketSelect = document.getElementById('paketSelect');
-  if (!paketSelect) return;
-
-  const selectedPaket = paketSelect.options[paketSelect.selectedIndex];
-  const paketPrice = parseFloat(selectedPaket.getAttribute('data-price')) || 0;
-
-  const lokasiSelect = document.getElementById('lokasiSelect');
-  const selectedLokasi = lokasiSelect.options[lokasiSelect.selectedIndex];
-  const ongkirPrice = parseFloat(selectedLokasi.getAttribute('data-price')) || 0;
-
-  const jumlahInput = document.getElementById('jumlah');
-  const jumlah = parseInt(jumlahInput.value) || 1;
-
-  const total = (paketPrice * jumlah) + ongkirPrice;
-
-  // Cek simbol mata uang
-  const isDollar = selectedPaket.text.includes('$') || selectedLokasi.text.includes('$');
-  const currencySymbol = isDollar ? '$' : 'Rp';
-
-  document.getElementById('totalHarga').innerText = currencySymbol + total.toLocaleString('id-ID');
+function toggleLokasi() {
+    const metode = document.getElementById('metode').value;
+    const lokasiGroup = document.getElementById('lokasiGroup');
+    lokasiGroup.style.display = (metode === 'DIANTAR') ? 'block' : 'none';
 }
 
-// Cek batas minimal pesanan jika Kategori Acara dipilih
-function checkMinimumOrder() {
-  const kategori = document.getElementById('kategoriSelect').value;
-  const jumlahInput = document.getElementById('jumlah');
-  const minWarning = document.getElementById('minWarning');
+function updatePreviewImg() {
+    const paketSelect = document.getElementById('namaPaket');
+    const selectedOption = paketSelect.options[paketSelect.selectedIndex];
+    const imgName = selectedOption.getAttribute('data-img');
+    document.getElementById('paketImg').src = imgName;
+}
 
-  if (kategori === 'acara') {
-    jumlahInput.min = 10;
-    if (parseInt(jumlahInput.value) < 10) {
-      jumlahInput.value = 10;
+function generateForm() {
+    const jumlahVal = parseInt(document.getElementById('jumlah').value) || 0;
+
+    // Validasi Pembelian Minimal 10
+    if (jumlahVal < 10) {
+        alert('Pemesanan Catering minimal 10 paket!');
+        return;
     }
-    if (minWarning) minWarning.style.display = 'block';
-  } else {
-    jumlahInput.min = 1;
-    if (minWarning) minWarning.style.display = 'none';
-  }
-  calculateTotal();
+
+    const namaIc = document.getElementById('namaIc').value || '-';
+    const noHp = document.getElementById('noHp').value || '-';
+    
+    // Ambil Informasi Paket
+    const paketSelect = document.getElementById('namaPaket');
+    const namaPaket = paketSelect.value;
+    const hargaPerPaket = parseInt(paketSelect.options[paketSelect.selectedIndex].getAttribute('data-harga')) || 0;
+
+    const keperluan = document.getElementById('keperluan').value || '-';
+    const tglPesan = document.getElementById('tglPesan').value || '-';
+    const tglAmbil = document.getElementById('tglAmbil').value || '-';
+    const metode = document.getElementById('metode').value;
+    
+    // Hitung Ongkir
+    const lokasiSelect = document.getElementById('lokasi');
+    let ongkir = 0;
+    let lokasiText = '-';
+
+    if (metode === 'DIANTAR') {
+        lokasiText = lokasiSelect.value;
+        ongkir = parseInt(lokasiSelect.options[lokasiSelect.selectedIndex].getAttribute('data-ongkir')) || 0;
+    }
+
+    const jam = document.getElementById('jam').value || '-';
+    const note = document.getElementById('note').value || '-';
+
+    // Hitung Total Pembayaran
+    const totalHarga = (hargaPerPaket * jumlahVal) + ongkir;
+    const totalFormatted = '$' + totalHarga.toLocaleString('en-US');
+
+    // Format Pesanan Ringkas
+    const resultText = `NAMA IC       : ${namaIc}
+NO. HP IC     : ${noHp}
+NAMA PAKET    : ${namaPaket}
+JUMLAH        : ${jumlahVal}
+KEPERLUAN     : ${keperluan}
+TANGGAL PESAN : ${tglPesan}
+TANGGAL AMBIL : ${tglAmbil}
+ANTAR/AMBIL   : ${metode}
+JAM           : ${jam}
+LOKASI        : ${lokasiText}
+
+TOTAL HARGA   : ${totalFormatted}
+
+NOTE : ${note}`;
+
+    const outputDiv = document.getElementById('output');
+    outputDiv.style.display = 'block';
+    outputDiv.innerText = resultText;
+
+    navigator.clipboard.writeText(resultText);
+    alert('Form Pemesanan Catering berhasil disalin!');
 }
-
-// Fungsi membuat Invoice saat tombol BELI diklik
-function generateInvoice() {
-  const namaEl = document.getElementById('nama');
-  const hpEl = document.getElementById('nomorHp');
-  const tanggalEl = document.getElementById('tanggalPengiriman');
-
-  const nama = namaEl ? namaEl.value.trim() : '';
-  const hp = hpEl ? hpEl.value.trim() : '';
-  const tanggal = tanggalEl ? tanggalEl.value : '';
-
-  // Jika nama atau HP belum diisi
-  if (!nama || !hp) {
-    alert('Harap isi Nama Pemesan dan Nomor HP terlebih dahulu!');
-    return;
-  }
-
-  const kategoriSelect = document.getElementById('kategoriSelect');
-  const kategoriText = kategoriSelect.options[kategoriSelect.selectedIndex].text;
-
-  const paketSelect = document.getElementById('paketSelect');
-  const selectedPaket = paketSelect.options[paketSelect.selectedIndex];
-  const paketText = selectedPaket.text.split('-')[0].trim();
-  const menuText = selectedPaket.getAttribute('data-menu') || '-';
-
-  const jumlah = document.getElementById('jumlah').value;
-  const jam = document.getElementById('jamPengiriman').value;
-
-  const lokasiSelect = document.getElementById('lokasiSelect');
-  const lokasiText = lokasiSelect.options[lokasiSelect.selectedIndex].text;
-
-  const totalHarga = document.getElementById('totalHarga').innerText;
-
-  // Masukkan data ke tampilan Invoice
-  if (document.getElementById('invNama')) document.getElementById('invNama').innerText = nama;
-  if (document.getElementById('invHp')) document.getElementById('invHp').innerText = hp;
-  if (document.getElementById('invKategori')) document.getElementById('invKategori').innerText = kategoriText;
-  if (document.getElementById('invPaket')) document.getElementById('invPaket').innerText = paketText;
-  if (document.getElementById('invMenu')) document.getElementById('invMenu').innerText = menuText;
-  if (document.getElementById('invJumlah')) document.getElementById('invJumlah').innerText = jumlah;
-  if (document.getElementById('invWaktu')) document.getElementById('invWaktu').innerText = (tanggal ? tanggal : 'Hari ini') + ' jam ' + jam;
-  if (document.getElementById('invLokasi')) document.getElementById('invLokasi').innerText = lokasiText;
-  if (document.getElementById('invTotal')) document.getElementById('invTotal').innerText = totalHarga;
-
-  // Tampilkan card invoice & gulir otomatis ke bawah
-  const invoiceCard = document.getElementById('invoiceCard');
-  if (invoiceCard) {
-    invoiceCard.style.display = 'block';
-    invoiceCard.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-// Pilih paket dari tombol ORDER SEKARANG
-function setSelectPackage(value) {
-  const select = document.getElementById('paketSelect');
-  if (select) {
-    select.value = value;
-    calculateTotal();
-  }
-}
-
-// Jalankan otomatis saat web dimuat
-document.addEventListener('DOMContentLoaded', function() {
-  const tanggalInput = document.getElementById('tanggalPengiriman');
-  if (tanggalInput && !tanggalInput.value) {
-    const today = new Date().toISOString().split('T')[0];
-    tanggalInput.value = today;
-  }
-  calculateTotal();
-});
