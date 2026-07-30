@@ -51,8 +51,10 @@ function generateForm() {
     const totalHarga = (hargaPerPaket * jumlahVal) + ongkir;
     const totalFormatted = '$' + totalHarga.toLocaleString('en-US');
 
-    // Format Pesanan Bersih Sesuai Permintaan
-    const resultText = `NAMA IC       : ${namaIc}
+    // Format Pesanan Bersih Sesuai Permintaan (Lengkap dengan judul & tag @cateria)
+    const resultText = `Orderrr
+
+NAMA IC       : ${namaIc}
 NO. HP IC     : ${noHp}
 NAMA PAKET    : ${namaPaket}
 JUMLAH        : ${jumlahVal}
@@ -65,7 +67,9 @@ LOKASI        : ${lokasiText}
 
 TOTAL HARGA   : ${totalFormatted}
 
-NOTE : ${note}`;
+NOTE : ${note}
+
+@cateria`;
 
     const outputDiv = document.getElementById('output');
     outputDiv.style.display = 'block';
